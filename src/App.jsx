@@ -544,10 +544,12 @@ const experiments_ck = [
 function App() {
   const [experiments, setExperiments] = useState();
   const [selectedProject, setSelectedProject] = useState("th");
+  const [isLoading, setIsLoading] = useState(true);
 
   function handleSelectProject(project) {
     console.log("project selected = ", project);
     setSelectedProject(project);
+    setIsLoading(true);
   };
 
   function handleExperimentStateChange(experiment, state) {
@@ -566,12 +568,14 @@ function App() {
       return copyExp
     });
     setExperiments(copy);
+    
   }
 
   useEffect(() => {
     const fetchedExperiments = networkManager.fetchExperiments(selectedProject);
     setTimeout(() => {
       setExperiments(fetchedExperiments);
+      setIsLoading(false);
     }, 5000);
   }, [selectedProject]);
 
@@ -589,28 +593,30 @@ function App() {
       </div>
 
       <div className='table-list' style={{padding: "10px", border: "1px solid red"}}>
-      {experiments && experiments.map(exp => {
-          return <div key={Math.random() * 200} className='table-row' style={{display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid red"}}>
-                    <div className='table-data'>
-                      <h3>{exp.name}</h3>
+        {isLoading && <h1>Loading...</h1>}
+        
+        {(experiments && !isLoading) && experiments.map(exp => {
+            return <div key={Math.random() * 200} className='table-row' style={{display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid red"}}>
+                      <div className='table-data'>
+                        <h3>{exp.name}</h3>
+                      </div>
+                      <div className='table-data'>
+                        <h3>Type</h3>
+                      </div>
+                      <div className='table-data'>
+                        <h3>{exp.status}</h3>
+                      </div>
+                      <div className='table-data'>
+                        <select onChange={(e) => {handleExperimentStateChange(exp, e.target.value)}}>
+                          <option>Run</option>
+                          <option>Pause</option>
+                          <option>Archive</option>
+                          <option>Conclude</option>
+                        </select>
+                      </div>
+                      
                     </div>
-                    <div className='table-data'>
-                      <h3>Type</h3>
-                    </div>
-                    <div className='table-data'>
-                      <h3>{exp.status}</h3>
-                    </div>
-                    <div className='table-data'>
-                      <select onChange={(e) => {handleExperimentStateChange(exp, e.target.value)}}>
-                        <option>Run</option>
-                        <option>Pause</option>
-                        <option>Archive</option>
-                        <option>Conclude</option>
-                      </select>
-                    </div>
-                    
-                  </div>
-        })}
+          })}
       </div>
    
 
