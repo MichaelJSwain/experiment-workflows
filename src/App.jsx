@@ -3,7 +3,9 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 const {VITE_OPTLY_PROJECT_ID_TH, VITE_OPTLY_TOKEN} = import.meta.env;
 
+
 import './App.css'
+import networkManager from './scripts/networkManager';
 
 const experiments_th = [
   {
@@ -542,28 +544,6 @@ const experiments_ck = [
 function App() {
   const [experiments, setExperiments] = useState();
   const [selectedProject, setSelectedProject] = useState("th");
-  
-  function fetchExperiments() {
-    let response;
-    if (selectedProject === "th") {
-      response = experiments_th;
-    } else {
-      response = experiments_ck;
-    }
-    return response;
-    // const options = {
-    //   method: 'GET',
-    //   headers: {
-    //     accept: 'application/json',
-    //     authorization: `Bearer ${VITE_OPTLY_TOKEN}`
-    //   }
-    // };
-    
-    // fetch(`https://api.optimizely.com/v2/experiments?per_page=25&page=1&project_id=${VITE_OPTLY_PROJECT_ID_TH}`, options)
-    //   .then(res => res.json())
-    //   .then(res => console.log(res))
-    //   .catch(err => console.error(err));
-  }
 
   function handleSelectProject(project) {
     console.log("project selected = ", project);
@@ -573,9 +553,9 @@ function App() {
   function handleExperimentStateChange(experiment, state) {
     console.log(experiment, state);
 
-    /* call api 
-     ....
-     */
+    // call api + update optimizely //
+    networkManager.updateExperimentStatus(selectedProject, experiment, state)
+
 
     // update UI
     const copy = experiments.map(exp => {
@@ -589,13 +569,10 @@ function App() {
   }
 
   useEffect(() => {
-    const fetchedExperiments = fetchExperiments()
-    setExperiments(fetchedExperiments);
-  }, []);
-
-  useEffect(() => {
-    const fetchedExperiments = fetchExperiments();
-    setExperiments(fetchedExperiments);
+    const fetchedExperiments = networkManager.fetchExperiments(selectedProject);
+    setTimeout(() => {
+      setExperiments(fetchedExperiments);
+    }, 5000);
   }, [selectedProject]);
 
   return (
