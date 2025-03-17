@@ -6,7 +6,7 @@ const {VITE_OPTLY_PROJECT_ID_TH, VITE_OPTLY_TOKEN} = import.meta.env;
 
 import './App.css'
 import networkManager from './scripts/networkManager';
-import { Header } from './components/Header';
+import { Header } from './components/Header/Header';
 
 const experiments_th = [
   {
