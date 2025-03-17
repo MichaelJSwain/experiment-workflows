@@ -7,6 +7,7 @@ const {VITE_OPTLY_PROJECT_ID_TH, VITE_OPTLY_TOKEN} = import.meta.env;
 import './App.css'
 import networkManager from './scripts/networkManager';
 import { Header } from './components/Header/Header';
+import { Navbar } from './components/Navbar/Navbar';
 
 const experiments_th = [
   {
@@ -583,7 +584,8 @@ function App() {
   return (
     <>
       <Header />
-      
+      <Navbar />
+
       <div className='table-container'>
 
       <div style={{display: "flex"}}>

@@ -1,0 +1,26 @@
+nav {
+    width: 226px;
+    background: white;
+    min-height: 100%;
+    padding: 20px 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+    color: black;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.project-name {
+    color: rgb(0, 55, 255);
+}
+
+.project-type {
+    font-size: .75rem;
+}
