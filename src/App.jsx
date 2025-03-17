@@ -584,43 +584,46 @@ function App() {
   return (
     <>
       <Header />
-      <Navbar onProjectSelected={handleSelectProject} />
-
-      <div className='table-container'>
 
       <div style={{display: "flex"}}>
-        <div className='table-tab' style={{background: selectedProject === 'th' ? "red" : "none", padding: "10px", border: "1px solid red"}} onClick={() => {handleSelectProject('th')}}>Tommy - Web Tests</div>
-        <div className='table-tab' style={{background: selectedProject === 'ck' ? "red" : "none", padding: "10px", border: "1px solid red"}} onClick={() => {handleSelectProject('ck')}}>Calvin - Web Tests</div>
-      </div>
+        <Navbar onProjectSelected={handleSelectProject} />
 
-      <div className='table-list' style={{padding: "10px", border: "1px solid red"}}>
-        {isLoading && <h1>Loading...</h1>}
-        
-        {(experiments && !isLoading) && experiments.map(exp => {
-            return <div key={Math.random() * 200} className='table-row' style={{display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid red"}}>
-                      <div className='table-data'>
-                        <h3>{exp.name}</h3>
-                      </div>
-                      <div className='table-data'>
-                        <h3>Type</h3>
-                      </div>
-                      <div className='table-data'>
-                        <h3>{exp.status}</h3>
-                      </div>
-                      <div className='table-data'>
-                        <select onChange={(e) => {handleExperimentStateChange(exp, e.target.value)}}>
-                          <option>Run</option>
-                          <option>Pause</option>
-                          <option>Archive</option>
-                          <option>Conclude</option>
-                        </select>
-                      </div>
-                      
-                    </div>
-          })}
-      </div>
-   
+        <div className='table-container'>
 
+        <div style={{display: "flex"}}>
+          <div className='table-tab' style={{background: selectedProject === 'th' ? "red" : "none", padding: "10px", border: "1px solid red"}} onClick={() => {handleSelectProject('th')}}>Tommy - Web Tests</div>
+          <div className='table-tab' style={{background: selectedProject === 'ck' ? "red" : "none", padding: "10px", border: "1px solid red"}} onClick={() => {handleSelectProject('ck')}}>Calvin - Web Tests</div>
+        </div>
+
+        <div className='table-list' style={{padding: "10px", border: "1px solid red"}}>
+          {isLoading && <h1>Loading...</h1>}
+          
+          {(experiments && !isLoading) && experiments.map(exp => {
+              return <div key={Math.random() * 200} className='table-row' style={{display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid red"}}>
+                        <div className='table-data'>
+                          <h3>{exp.name}</h3>
+                        </div>
+                        <div className='table-data'>
+                          <h3>Type</h3>
+                        </div>
+                        <div className='table-data'>
+                          <h3>{exp.status}</h3>
+                        </div>
+                        <div className='table-data'>
+                          <select onChange={(e) => {handleExperimentStateChange(exp, e.target.value)}}>
+                            <option>Run</option>
+                            <option>Pause</option>
+                            <option>Archive</option>
+                            <option>Conclude</option>
+                          </select>
+                        </div>
+                        
+                      </div>
+            })}
+        </div>
+    
+
+        </div>
       </div>
     </>
   )
