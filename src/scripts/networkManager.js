@@ -27,7 +27,7 @@ const experiments_th = [
         14208030178
       ],
       "project_id": 14193350179,
-      "status": "archived",
+      "status": "running",
       "traffic_allocation": 10000,
       "type": "a/b",
       "variations": [
@@ -86,7 +86,7 @@ const experiments_th = [
         14285590348
       ],
       "project_id": 14193350179,
-      "status": "archived",
+      "status": "running",
       "traffic_allocation": 10000,
       "type": "a/b",
       "variations": [
@@ -137,7 +137,7 @@ const experiments_th = [
         6456458930290688
       ],
       "project_id": 14193350179,
-      "status": "archived",
+      "status": "running",
       "traffic_allocation": 10000,
       "type": "a/b",
       "variations": [
@@ -198,7 +198,7 @@ const experiments_th = [
         6677488684761088
       ],
       "project_id": 14193350179,
-      "status": "archived",
+      "status": "running",
       "traffic_allocation": 10000,
       "type": "a/b",
       "variations": [
@@ -288,7 +288,7 @@ const experiments_th = [
         5524941324419072
       ],
       "project_id": 14193350179,
-      "status": "archived",
+      "status": "running",
       "traffic_allocation": 10000,
       "type": "a/b",
       "variations": [
@@ -362,7 +362,7 @@ const experiments_th = [
         6254224774791168
       ],
       "project_id": 4639710178443264,
-      "status": "archived",
+      "status": "running",
       "traffic_allocation": 10000,
       "type": "a/b",
       "variations": [
@@ -428,7 +428,7 @@ const experiments_th = [
         5025891089121280
       ],
       "project_id": 4639710178443264,
-      "status": "archived",
+      "status": "running",
       "traffic_allocation": 10000,
       "type": "a/b",
       "variations": [
@@ -510,7 +510,7 @@ const experiments_th = [
       "name": "Experiment created via api",
       "page_ids": [],
       "project_id": 4639710178443264,
-      "status": "not_started",
+      "status": "paused",
       "traffic_allocation": 10000,
       "type": "a/b",
       "url_targeting": {
