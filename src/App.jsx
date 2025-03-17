@@ -6,6 +6,7 @@ const {VITE_OPTLY_PROJECT_ID_TH, VITE_OPTLY_TOKEN} = import.meta.env;
 
 import './App.css'
 import networkManager from './scripts/networkManager';
+import { Header } from './components/Header/Header';
 
 const experiments_th = [
   {
@@ -581,9 +582,7 @@ function App() {
 
   return (
     <>
-      <nav>
-        <h1>Workflows</h1>
-      </nav>
+      <Header />
       
       <div className='table-container'>
 
