@@ -3,7 +3,9 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 const {VITE_OPTLY_PROJECT_ID_TH, VITE_OPTLY_TOKEN} = import.meta.env;
 
+
 import './App.css'
+import networkManager from './scripts/networkManager';
 
 const experiments_th = [
   {
@@ -542,40 +544,20 @@ const experiments_ck = [
 function App() {
   const [experiments, setExperiments] = useState();
   const [selectedProject, setSelectedProject] = useState("th");
-  
-  function fetchExperiments() {
-    let response;
-    if (selectedProject === "th") {
-      response = experiments_th;
-    } else {
-      response = experiments_ck;
-    }
-    return response;
-    // const options = {
-    //   method: 'GET',
-    //   headers: {
-    //     accept: 'application/json',
-    //     authorization: `Bearer ${VITE_OPTLY_TOKEN}`
-    //   }
-    // };
-    
-    // fetch(`https://api.optimizely.com/v2/experiments?per_page=25&page=1&project_id=${VITE_OPTLY_PROJECT_ID_TH}`, options)
-    //   .then(res => res.json())
-    //   .then(res => console.log(res))
-    //   .catch(err => console.error(err));
-  }
+  const [isLoading, setIsLoading] = useState(true);
 
   function handleSelectProject(project) {
     console.log("project selected = ", project);
     setSelectedProject(project);
+    setIsLoading(true);
   };
 
   function handleExperimentStateChange(experiment, state) {
     console.log(experiment, state);
 
-    /* call api 
-     ....
-     */
+    // call api + update optimizely //
+    networkManager.updateExperimentStatus(selectedProject, experiment, state)
+
 
     // update UI
     const copy = experiments.map(exp => {
@@ -586,16 +568,15 @@ function App() {
       return copyExp
     });
     setExperiments(copy);
+    
   }
 
   useEffect(() => {
-    const fetchedExperiments = fetchExperiments()
-    setExperiments(fetchedExperiments);
-  }, []);
-
-  useEffect(() => {
-    const fetchedExperiments = fetchExperiments();
-    setExperiments(fetchedExperiments);
+    const fetchedExperiments = networkManager.fetchExperiments(selectedProject);
+    setTimeout(() => {
+      setExperiments(fetchedExperiments);
+      setIsLoading(false);
+    }, 5000);
   }, [selectedProject]);
 
   return (
@@ -612,28 +593,30 @@ function App() {
       </div>
 
       <div className='table-list' style={{padding: "10px", border: "1px solid red"}}>
-      {experiments && experiments.map(exp => {
-          return <div key={Math.random() * 200} className='table-row' style={{display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid red"}}>
-                    <div className='table-data'>
-                      <h3>{exp.name}</h3>
+        {isLoading && <h1>Loading...</h1>}
+        
+        {(experiments && !isLoading) && experiments.map(exp => {
+            return <div key={Math.random() * 200} className='table-row' style={{display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid red"}}>
+                      <div className='table-data'>
+                        <h3>{exp.name}</h3>
+                      </div>
+                      <div className='table-data'>
+                        <h3>Type</h3>
+                      </div>
+                      <div className='table-data'>
+                        <h3>{exp.status}</h3>
+                      </div>
+                      <div className='table-data'>
+                        <select onChange={(e) => {handleExperimentStateChange(exp, e.target.value)}}>
+                          <option>Run</option>
+                          <option>Pause</option>
+                          <option>Archive</option>
+                          <option>Conclude</option>
+                        </select>
+                      </div>
+                      
                     </div>
-                    <div className='table-data'>
-                      <h3>Type</h3>
-                    </div>
-                    <div className='table-data'>
-                      <h3>{exp.status}</h3>
-                    </div>
-                    <div className='table-data'>
-                      <select onChange={(e) => {handleExperimentStateChange(exp, e.target.value)}}>
-                        <option>Run</option>
-                        <option>Pause</option>
-                        <option>Archive</option>
-                        <option>Conclude</option>
-                      </select>
-                    </div>
-                    
-                  </div>
-        })}
+          })}
       </div>
    
 
