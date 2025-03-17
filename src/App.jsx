@@ -584,7 +584,7 @@ function App() {
   return (
     <>
       <Header />
-      <Navbar />
+      <Navbar onProjectSelected={handleSelectProject} />
 
       <div className='table-container'>
 
