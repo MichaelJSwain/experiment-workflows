@@ -5,16 +5,19 @@ nav {
     padding: 20px 0;
 }
 
-ul {
+.project-list {
     margin: 0;
     padding: 0;
 }
 
-li {
+.project-list-item {
     list-style: none;
     color: black;
     padding: 10px 20px;
     cursor: pointer;
+}
+.selected {
+    background: #E1E5F5;
 }
 
 .project-name {

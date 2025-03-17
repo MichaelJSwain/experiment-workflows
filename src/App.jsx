@@ -586,7 +586,7 @@ function App() {
       <Header />
 
       <div style={{display: "flex"}}>
-        <Navbar onProjectSelected={handleSelectProject} />
+        <Navbar onProjectSelected={handleSelectProject} selectedProject={selectedProject}/>
 
         <div className='table-container'>
 
